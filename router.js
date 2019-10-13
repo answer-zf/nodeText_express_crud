@@ -5,8 +5,6 @@
  *    根据不同请求方法 + 请求路径设置具体的请求处理函数
  */
 
-var fs = require('fs')
-
 var Student = require('./student')
 
 // express 有专门包装路由的方式  => 简化操作
@@ -32,21 +30,16 @@ router.get('/students/new', function(req, res) {
 })
 
 router.post('/students/new', function(req, res) {
-  var newData = req.body
-  // fs.readFile('./db.json', 'utf8', function(err, data) {
-  //   if (err) {
-  //     return res.status(500).send('server error')
-  //   }
-  //   var upData = JSON.parse(data)
-  //     .students.unshift(newData)
-  //     .toString()
-  //   fs.writeFile('./db.json', upData, function(err) {
-  //     if (err) {
-  //       return res.status(500).send('server error')
-  //     }
-  //     res.redirect('/students')
-  //   })
-  // })
+  // 处理表单数据
+  // 处理数据
+  //    - 持久化
+  // 发送响应
+  Student.save(req.body, function(err) {
+    if (err) {
+      return res.status(500).send('server error.')
+    }
+    res.redirect('/students')
+  })
 })
 
 router.get('/students/edit', function(req, res) {})

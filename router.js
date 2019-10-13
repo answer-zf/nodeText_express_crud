@@ -1,25 +1,38 @@
+/**
+ * router.js 路由模块
+ * 职责：
+ *    处理路由
+ *    根据不同请求方法 + 请求路径设置具体的请求处理函数
+ */
+
 var fs = require('fs')
-module.exports = function(app) {
-  app.get('/students', function(req, res) {
-    // readFile 的第二个参数是可选的，传入 utf8 就是告诉他把读取到的文件直接按照 utf8 编码转成字符串
-    // 等价于 data.toString()
-    fs.readFile('./db.json', 'utf8', function(err, data) {
-      if (err) {
-        return res.status(500).send('server error.')
-      }
-      res.render('index.html', {
-        list: ['low', 'mediu', 'heigh', 'to heigh'],
-        students: JSON.parse(data).students
-      })
+// express 有专门包装路由的方式  => 简化操作
+var express = require('express')
+// - 创建一个路由容器
+var router = express.Router()
+// - 把路由都挂载都 router 路由容器中
+
+router.get('/students', function(req, res) {
+  fs.readFile('./db.json', 'utf8', function(err, data) {
+    if (err) {
+      return res.status(500).send('server error.')
+    }
+    res.render('index.html', {
+      list: ['low', 'mediu', 'heigh', 'to heigh'],
+      students: JSON.parse(data).students
     })
   })
-  app.get('/students/new', function(req, res) {})
+})
 
-  app.get('/students/new', function(req, res) {})
+router.get('/students/new', function(req, res) {})
 
-  app.get('/students/new', function(req, res) {})
+router.get('/students/new', function(req, res) {})
 
-  app.get('/students/new', function(req, res) {})
+router.get('/students/new', function(req, res) {})
 
-  app.get('/students/new', function(req, res) {})
-}
+router.get('/students/new', function(req, res) {})
+
+router.get('/students/new', function(req, res) {})
+
+// 导出router
+module.exports = router

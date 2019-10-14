@@ -13,6 +13,11 @@ var express = require('express')
 var router = express.Router()
 // - 把路由都挂载都 router 路由容器中
 
+// 获取数据
+// 响应处理（curd）
+//    - 持久化
+// 发送响应
+
 router.get('/students', function(req, res) {
   Student.find(function(err, students) {
     if (err) {
@@ -30,10 +35,6 @@ router.get('/students/new', function(req, res) {
 })
 
 router.post('/students/new', function(req, res) {
-  // 处理表单数据
-  // 处理数据
-  //    - 持久化
-  // 发送响应
   Student.save(req.body, function(err) {
     if (err) {
       return res.status(500).send('server error.')
@@ -43,8 +44,6 @@ router.post('/students/new', function(req, res) {
 })
 
 router.get('/students/edit', function(req, res) {
-  // Student.findById(res.query, )
-  // console.log(req.query.id)
   Student.findById(req.query.id, function(err, student) {
     if (err) {
       return res.status(500).send('server error.')
@@ -56,9 +55,6 @@ router.get('/students/edit', function(req, res) {
 })
 
 router.post('/students/edit', function(req, res) {
-  // var student = req.body
-  // console.log(student)
-  // student.id = parseInt(req.query.id)
   Student.updateById(req.body, function(err) {
     if (err) {
       return res.status(500).send('server error.')

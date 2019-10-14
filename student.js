@@ -19,6 +19,24 @@ exports.find = function(callback) {
   })
 }
 /**
+ * 通过Id获取学生信息对象
+ *
+ * @param {number} id 学生id
+ * @param {function} callback 回调函数
+ */
+exports.findById = function(id, callback) {
+  fs.readFile(dbPath, 'utf8', function(err, data) {
+    if (err) {
+      return callback(err)
+    }
+    var students = JSON.parse(data).students
+    var student = students.find(function(item) {
+      return item.id === parseInt(id)
+    })
+    callback(null, student)
+  })
+}
+/**
  * 添加保存
  */
 exports.save = function(student, callback) {
@@ -43,8 +61,50 @@ exports.save = function(student, callback) {
 /**
  * 更新
  */
-exports.updata = function() {}
+exports.updateById = function(student, callback) {
+  fs.readFile(dbPath, 'utf8', function(err, data) {
+    if (err) {
+      return callback(err)
+    }
+    var students = JSON.parse(data).students
+    student.id = parseInt(student.id)
+    var stu = students.find(function(item) {
+      return item.id === parseInt(student.id)
+    })
+    for (var key in student) {
+      stu[key] = student[key]
+    }
+    var fileData = JSON.stringify({
+      students: students
+    })
+    fs.writeFile(dbPath, fileData, function(err) {
+      if (err) {
+        return callback(err)
+      }
+      callback(null)
+    })
+  })
+}
+
 /**
  * 删除
  */
-exports.delete = function() {}
+exports.deleteById = function(id, callback) {
+  fs.readFile(dbPath, 'utf8', function(err, data) {
+    if (err) {
+      return callback(err)
+    }
+    var students = JSON.parse(data).students
+    var index = students.findIndex(function(item) {
+      return item.id === parseInt(id)
+    })
+    students.splice(index, 1)
+    var fileData = JSON.stringify({
+      students: students
+    })
+    fs.writeFile(dbPath, fileData, function(err) {
+      return callback(err)
+    })
+    callback(null)
+  })
+}

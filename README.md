@@ -78,3 +78,7 @@ exports.updata = function() {}
  */
 exports.delete = function() {}
 ```
+
+
+
+![curd](./markdown/curd.jpg)

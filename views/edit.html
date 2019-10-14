@@ -71,50 +71,38 @@
         </ul>
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1 class="page-header">Dashboard</h1>
-
-        <div class="row placeholders">
-          {{ each list}}
-          <div class="col-xs-6 col-sm-3 placeholder">
-            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200"
-              height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>{{$value}}</h4>
-            <span class="text-muted">Something else</span>
+        <h2 class="sub-header">修改</h2>
+        <!-- <form action="/students/edit?id={{student.id}}" method="post"> -->
+        <form action="/students/edit" method="post">
+          <input type="hidden" name="id" value="{{student.id}}">
+          <div class="form-group">
+            <label for="name">name</label>
+            <input type="text" class="form-control" id="name" placeholder="name" value="{{student.name}}" name="name">
           </div>
-          {{ /each}}
-        </div>
-
-        <h2 class="sub-header">Section title</h2>
-        <a href="/students/new" class="btn btn-success">添加学生</a>
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>姓名</th>
-                <th>性别</th>
-                <th>年龄</th>
-                <th>爱好</th>
-                <th>操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{ each students}}
-              <tr>
-                <td>{{$value.id}}</td>
-                <td>{{$value.name}}</td>
-                <td>{{$value.gender}}</td>
-                <td>{{$value.age}}</td>
-                <td>{{$value.hobbies}}</td>
-                <td>
-                  <a href="/students/edit?id={{$value.id}}">修改</a>
-                  <a href="/students/delete?id={{$value.id}}">删除</a>
-                </td>
-              </tr>
-              {{ /each }}
-            </tbody>
-          </table>
-        </div>
+          <div class="form-group">
+            <label>gender</label>
+            <div>
+              <label class="radio-inline">
+                <input type="radio" name="gender" id="inlineRadio1" value="0" {{if student.gender == 0 }} checked
+                  {{/if}}> man
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="gender" id="inlineRadio2" value="1" {{if student.gender == 1 }} checked
+                  {{/if}}> woman
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="age">age</label>
+            <input type="number" class="form-control" id="age" placeholder="age" value="{{student.age}}" name="age">
+          </div>
+          <div class="form-group">
+            <label for="hobbies">hobbies</label>
+            <input type="text" class="form-control" id="hobbies" placeholder="hobbies" value="{{student.hobbies}}"
+              name="hobbies">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
       </div>
     </div>
   </div>

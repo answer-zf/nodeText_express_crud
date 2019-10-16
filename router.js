@@ -35,7 +35,7 @@ router.get('/students/new', function(req, res) {
 })
 
 router.post('/students/new', function(req, res) {
-  Student.save(req.body, function(err) {
+  new Student(req.body).save(function(err) {
     if (err) {
       return res.status(500).send('server error.')
     }
@@ -55,7 +55,7 @@ router.get('/students/edit', function(req, res) {
 })
 
 router.post('/students/edit', function(req, res) {
-  Student.updateById(req.body, function(err) {
+  Student.findByIdAndUpdate(req.body.id, req.body, function(err) {
     if (err) {
       return res.status(500).send('server error.')
     }
@@ -64,7 +64,7 @@ router.post('/students/edit', function(req, res) {
 })
 
 router.get('/students/delete', function(req, res) {
-  Student.deleteById(req.query.id, function(err) {
+  Student.findByIdAndRemove(req.query.id, function(err) {
     if (err) {
       return res.status(500).send('server error.')
     }
